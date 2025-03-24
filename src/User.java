@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class User {
+static int MAX_ADMIN=10;
+static int MAX_TICKET=10;
 
     // ************************************************************ Fields
     // ************************************************************
@@ -17,7 +19,7 @@ public class User {
      * 2D Array to store admin credentials. Default credentials are stored on [0][0]
      * index. Max num of admins can be 10....
      */
-    static String[][] adminUserNameAndPassword = new String[10][2];
+    static String[][] adminUserNameAndPassword = new String[MAX_ADMIN][2];
     private static List<Customer> customersCollection = new ArrayList<>();
 
     // ************************************************************
@@ -247,7 +249,7 @@ public class User {
                             String flightToBeBooked = read1.nextLine();
                             System.out.print("Enter the Number of tickets for " + flightToBeBooked + " flight :   ");
                             int numOfTickets = read.nextInt();
-                            while (numOfTickets > 10) {
+                            while (numOfTickets > MAX_TICKET) {
                                 System.out.print(
                                         "ERROR!! You can't book more than 10 tickets at a time for single flight....Enter number of tickets again : ");
                                 numOfTickets = read.nextInt();
@@ -384,3 +386,5 @@ public class User {
         return customersCollection;
     }
 }
+
+
