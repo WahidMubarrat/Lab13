@@ -5,6 +5,10 @@ public class RandomGenerator {
     //        ************************************************************ Fields ************************************************************
 
     private String randomNum;
+    private static final int MIN_CUSTOMER_ID = 20000;
+    private static final int MAX_CUSTOMER_ID = 1000000;
+    private static final int MIN_SEATS = 75;
+    private static final int MAX_SEATS = 500;
     /*  City name is at the 0-index, its latitude is on the 1-index and longitude on the 2-index*/
     private static final String[][] destinations = {
             {"Karachi", "24.871940", "66.988060"}, {"Bangkok", "13.921430", "100.595337"}, {"Jakarta", "-6.174760", "106.827072"},
@@ -30,10 +34,10 @@ public class RandomGenerator {
     /* Generates Random ID for the Customers....*/
     public void randomIDGen() {
         Random rand = new Random();
-        String randomID = Integer.toString(rand.nextInt(1000000));
+        String randomID = Integer.toString(rand.nextInt(MAX_CUSTOMER_ID));
 
-        while (Integer.parseInt(randomID) < 20000) {
-            randomID = Integer.toString(rand.nextInt(1000000));
+        while (Integer.parseInt(randomID) < MIN_CUSTOMER_ID) {
+            randomID = Integer.toString(rand.nextInt(MAX_CUSTOMER_ID));
         }
         setRandomNum(randomID);
     }
@@ -65,10 +69,11 @@ public class RandomGenerator {
     /*Generates the Random Number of Seats for each flight*/
     public int randomNumOfSeats() {
         Random random = new Random();
-        int numOfSeats = random.nextInt(500);
-        while (numOfSeats < 75) {
-            numOfSeats = random.nextInt(500);
-        }
+        int numOfSeats;
+        do {
+            numOfSeats = random.nextInt(MAX_SEATS);
+        } while (numOfSeats < MIN_SEATS);
+
         return numOfSeats;
     }
 
@@ -79,8 +84,8 @@ public class RandomGenerator {
         for (int i = 0; i < uptoHowManyLettersRequired; i++) {
             randomAlphabets.append((char) (random.nextInt(26) + 'a'));
         }
-        randomAlphabets.append("-").append(randomNumOfSeats() / divisible);
-        return randomAlphabets.toString();
+       return randomAlphabets.append("-").append(randomNumOfSeats() / divisible).toString();
+
     }
 
     //        ************************************************************ Setters & Getters ************************************************************
