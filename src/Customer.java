@@ -20,13 +20,7 @@ public class Customer {
     // ************************************************************
 
     Customer() {
-        this.userID = null;
-        this.name = null;
-        this.email = null;
-        this.password = null;
-        this.phone = null;
-        this.address = null;
-        this.age = 0;
+        this(null,null,null,null,null,0);
     }
 
     /**
