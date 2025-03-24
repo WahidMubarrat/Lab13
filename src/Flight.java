@@ -192,24 +192,29 @@ public class Flight extends FlightDistance {
     /**
      * Calculates the distance between the cities/airports based on their lat longs.
      *
-     * @param lat1 origin city/airport latitude
-     * @param lon1 origin city/airport longitude
-     * @param lat2 destination city/airport latitude
-     * @param lon2 destination city/airport longitude
+     * @param latitude1 origin city/airport latitude
+     * @param longitude1 origin city/airport longitude
+     * @param latitude2 destination city/airport latitude
+     * @param longitude2 destination city/airport longitude
      * @return distance both in miles and km between the cities/airports
      */
     @Override
-    public String[] calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double distance = Math.sin(degreeToRadian(lat1)) * Math.sin(degreeToRadian(lat2)) + Math.cos(degreeToRadian(lat1)) * Math.cos(degreeToRadian(lat2)) * Math.cos(degreeToRadian(theta));
+    public String[] calculateDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
+        final double NAUTICAL_MILES_TO_STATUTE_MILES = 1.1515;
+       final double DEGREES_TO_NAUTICAL_MILES = 60.0;
+         final double STATUTE_MILES_TO_NAUTICAL_MILES = 0.8684;
+      final double STATUTE_MILES_TO_KILOMETERS = 1.609344;
+      final double ROUNDING_PRECISION = 100.0;
+        double theta = longitude1 - longitude2;
+        double distance = Math.sin(degreeToRadian(latitude1)) * Math.sin(degreeToRadian(latitude2)) + Math.cos(degreeToRadian(latitude1)) * Math.cos(degreeToRadian(latitude2)) * Math.cos(degreeToRadian(theta));
         distance = Math.acos(distance);
         distance = radianToDegree(distance);
-        distance = distance * 60 * 1.1515;
+        distance = distance *  DEGREES_TO_NAUTICAL_MILES * NAUTICAL_MILES_TO_STATUTE_MILES;
         /* On the Zero-Index, distance will be in Miles, on 1st-index, distance will be in KM and on the 2nd index distance will be in KNOTS*/
         String[] distanceString = new String[3];
-        distanceString[0] = String.format("%.2f", distance * 0.8684);
-        distanceString[1] = String.format("%.2f", distance * 1.609344);
-        distanceString[2] = Double.toString(Math.round(distance * 100.0) / 100.0);
+        distanceString[0] = String.format("%.2f", distance * STATUTE_MILES_TO_NAUTICAL_MILES);
+        distanceString[1] = String.format("%.2f", distance * STATUTE_MILES_TO_KILOMETERS);
+        distanceString[2] = Double.toString(Math.round(distance * ROUNDING_PRECISION) / ROUNDING_PRECISION);
         return distanceString;
     }
 
