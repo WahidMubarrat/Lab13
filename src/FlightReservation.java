@@ -135,21 +135,15 @@ public class FlightReservation implements DisplayClass {
         }
         return addedOrNot;
     }
-
     String flightStatus(Flight flight) {
-        boolean isFlightAvailable = false;
         for (Flight list : flight.getFlightList()) {
             if (list.getFlightNumber().equalsIgnoreCase(flight.getFlightNumber())) {
-                isFlightAvailable = true;
-                break;
+                return "As Per Schedule";
             }
         }
-        if (isFlightAvailable) {
-            return "As Per Schedule";
-        } else {
-            return "   Cancelled   ";
-        }
+        return "   Cancelled   ";
     }
+
 
     /*toString() Method for displaying number of flights registered by single user...*/
     public String toString(int serialNum, Flight flights, Customer customer) {
