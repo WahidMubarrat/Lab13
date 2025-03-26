@@ -9,19 +9,19 @@ public class Flight extends FlightDistance {
 
     //        ************************************************************ Fields ************************************************************
 
-    private final String flightSchedule;
+    private  final String flightSchedule;
     private final String flightNumber;
     private final String fromWhichCity;
     private final String gate;
     private final String toWhichCity;
-    private double distanceInMiles;
+    private  double distanceInMiles;
     private double distanceInKm;
     private String flightTime;
     private int numOfSeatsInTheFlight;
     private List<Customer> listOfRegisteredCustomersInAFlight;
     private int customerIndex;
-    private static int nextFlightDay = 0;
-    private static final List<Flight> flightList = new ArrayList<>();
+    private  static int nextFlightDay = 0;
+    static final List<Flight> flightList = new ArrayList<>();
 
     //        ************************************************************ Behaviours/Methods ************************************************************
 
@@ -192,24 +192,24 @@ public class Flight extends FlightDistance {
     /**
      * Calculates the distance between the cities/airports based on their lat longs.
      *
-     * @param latitude1 origin city/airport latitude
+     * @param latitude1  origin city/airport latitude
      * @param longitude1 origin city/airport longitude
-     * @param latitude2 destination city/airport latitude
+     * @param latitude2  destination city/airport latitude
      * @param longitude2 destination city/airport longitude
      * @return distance both in miles and km between the cities/airports
      */
     @Override
     public String[] calculateDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
         final double NAUTICAL_MILES_TO_STATUTE_MILES = 1.1515;
-       final double DEGREES_TO_NAUTICAL_MILES = 60.0;
-         final double STATUTE_MILES_TO_NAUTICAL_MILES = 0.8684;
-      final double STATUTE_MILES_TO_KILOMETERS = 1.609344;
-      final double ROUNDING_PRECISION = 100.0;
+        final double DEGREES_TO_NAUTICAL_MILES = 60.0;
+        final double STATUTE_MILES_TO_NAUTICAL_MILES = 0.8684;
+        final double STATUTE_MILES_TO_KILOMETERS = 1.609344;
+        final double ROUNDING_PRECISION = 100.0;
         double theta = longitude1 - longitude2;
         double distance = Math.sin(degreeToRadian(latitude1)) * Math.sin(degreeToRadian(latitude2)) + Math.cos(degreeToRadian(latitude1)) * Math.cos(degreeToRadian(latitude2)) * Math.cos(degreeToRadian(theta));
         distance = Math.acos(distance);
         distance = radianToDegree(distance);
-        distance = distance *  DEGREES_TO_NAUTICAL_MILES * NAUTICAL_MILES_TO_STATUTE_MILES;
+        distance = distance * DEGREES_TO_NAUTICAL_MILES * NAUTICAL_MILES_TO_STATUTE_MILES;
         /* On the Zero-Index, distance will be in Miles, on 1st-index, distance will be in KM and on the 2nd index distance will be in KNOTS*/
         String[] distanceString = new String[3];
         distanceString[0] = String.format("%.2f", distance * STATUTE_MILES_TO_NAUTICAL_MILES);
@@ -238,7 +238,7 @@ public class Flight extends FlightDistance {
             i++;
             Flight f1 = flightIterator.next();
             System.out.println(f1.toString(i));
-             System.out.print("+------+-------------------------------------------+-----------+------------------+-----------------------+------------------------+---------------------------+-------------+--------+------------------------+\n");
+            System.out.print("+------+-------------------------------------------+-----------+------------------+-----------------------+------------------------+---------------------------+-------------+--------+------------------------+\n");
         }
     }
 
@@ -292,20 +292,16 @@ public class Flight extends FlightDistance {
         return numOfSeatsInTheFlight;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
-    }
+
 
     public void setNoOfSeatsInTheFlight(int numOfSeatsInTheFlight) {
         this.numOfSeatsInTheFlight = numOfSeatsInTheFlight;
     }
 
-    public String getFlightTime() {
-        return flightTime;
-    }
+
 
     public List<Flight> getFlightList() {
-        return flightList;
+        return Flight.flightList;
     }
 
     public List<Customer> getListOfRegisteredCustomersInAFlight() {
@@ -326,6 +322,13 @@ public class Flight extends FlightDistance {
 
     public String getToWhichCity() {
         return toWhichCity;
+    }
+
+    public String getFlightTime() {
+        return flightTime;
+    }
+    public String getFlightNumber() {
+        return flightNumber;
     }
 
 }
