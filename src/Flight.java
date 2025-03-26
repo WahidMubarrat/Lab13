@@ -9,19 +9,19 @@ public class Flight extends FlightDistance {
 
     //        ************************************************************ Fields ************************************************************
 
-    private  final String flightSchedule;
+    private final String flightSchedule;
     private final String flightNumber;
     private final String fromWhichCity;
     private final String gate;
     private final String toWhichCity;
-    private  double distanceInMiles;
+    private double distanceInMiles;
     private double distanceInKm;
     private String flightTime;
     private int numOfSeatsInTheFlight;
     private List<Customer> listOfRegisteredCustomersInAFlight;
     private int customerIndex;
-    private  static int nextFlightDay = 0;
-    static final List<Flight> flightList = new ArrayList<>();
+    private static int nextFlightDay = 0;
+    private static final List<Flight> flightList = new ArrayList<>();
 
     //        ************************************************************ Behaviours/Methods ************************************************************
 
@@ -192,9 +192,9 @@ public class Flight extends FlightDistance {
     /**
      * Calculates the distance between the cities/airports based on their lat longs.
      *
-     * @param latitude1  origin city/airport latitude
+     * @param latitude1 origin city/airport latitude
      * @param longitude1 origin city/airport longitude
-     * @param latitude2  destination city/airport latitude
+     * @param latitude2 destination city/airport latitude
      * @param longitude2 destination city/airport longitude
      * @return distance both in miles and km between the cities/airports
      */
@@ -209,7 +209,7 @@ public class Flight extends FlightDistance {
         double distance = Math.sin(degreeToRadian(latitude1)) * Math.sin(degreeToRadian(latitude2)) + Math.cos(degreeToRadian(latitude1)) * Math.cos(degreeToRadian(latitude2)) * Math.cos(degreeToRadian(theta));
         distance = Math.acos(distance);
         distance = radianToDegree(distance);
-        distance = distance * DEGREES_TO_NAUTICAL_MILES * NAUTICAL_MILES_TO_STATUTE_MILES;
+        distance = distance *  DEGREES_TO_NAUTICAL_MILES * NAUTICAL_MILES_TO_STATUTE_MILES;
         /* On the Zero-Index, distance will be in Miles, on 1st-index, distance will be in KM and on the 2nd index distance will be in KNOTS*/
         String[] distanceString = new String[3];
         distanceString[0] = String.format("%.2f", distance * STATUTE_MILES_TO_NAUTICAL_MILES);
@@ -292,16 +292,20 @@ public class Flight extends FlightDistance {
         return numOfSeatsInTheFlight;
     }
 
-
+    public String getFlightNumber() {
+        return flightNumber;
+    }
 
     public void setNoOfSeatsInTheFlight(int numOfSeatsInTheFlight) {
         this.numOfSeatsInTheFlight = numOfSeatsInTheFlight;
     }
 
-
+    public String getFlightTime() {
+        return flightTime;
+    }
 
     public List<Flight> getFlightList() {
-        return Flight.flightList;
+        return flightList;
     }
 
     public List<Customer> getListOfRegisteredCustomersInAFlight() {
@@ -322,13 +326,6 @@ public class Flight extends FlightDistance {
 
     public String getToWhichCity() {
         return toWhichCity;
-    }
-
-    public String getFlightTime() {
-        return flightTime;
-    }
-    public String getFlightNumber() {
-        return flightNumber;
     }
 
 }

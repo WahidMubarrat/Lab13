@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class User {
 static int MAX_ADMIN=10;
 static int MAX_TICKET=10;
 
